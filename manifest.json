@@ -1,0 +1,33 @@
+{
+  "manifest_version": 1,
+
+  "name": "Lichess move announce",
+  "description": "This extension will announce moves on lichess",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "lichess.jpeg"
+  },
+  "content_scripts": [
+        {
+            "matches": [
+                "http://*.lichess.org/*",
+                "https://*.lichess.org/*"
+            ],
+            "js": [
+                "scripts/jquery-1.12.1.min.js",
+                "scripts/lichess.js"
+            ],
+            "run_at": "document_end",
+            "all_frames": false
+        }
+    ],
+    "web_accessible_resources": [
+        "sounds/*"
+    ],
+    "permissions": [
+        "activeTab",
+        "storage"
+    ]
+
+}
