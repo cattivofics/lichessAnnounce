@@ -1,14 +1,20 @@
 var moveLetters = new Array();
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var language = null;
+var enabled = null;
 var announceId = null;
 var sounds = new Array();
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
+        var storageChange = changes[key];
+
         if (key == 'language'){
-            var storageChange = changes[key];
             language = storageChange.newValue
+        }
+
+        if (key == 'enabled'){
+            enabled = storageChange.newValue
         }
     }
 });
@@ -75,6 +81,7 @@ function announceMove () {
 }
 
 var observer = new MutationObserver(function( mutations ) {
+    if ( enabled == false ) { return; }
 
     lastMove = $(document).find('move.active');
 

@@ -17,8 +17,12 @@
             ],
             "js": [
                 "scripts/jquery-1.12.1.min.js",
+                "scripts/bootstrap2-toggle.min.js",
                 "scripts/lichess.js",
                 "scripts/config.js"
+            ],
+            "css": [
+                "css/bootstrap2-toggle.min.css"
             ],
             "run_at": "document_end",
             "all_frames": false
