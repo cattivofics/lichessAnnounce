@@ -99,7 +99,7 @@ var observer = new MutationObserver(function( mutations ) {
     }
 
     if ( moveLetters.length > 0 ) {
-        announceId = setInterval(function(){ announceMove(); }, 700);
+        announceId = setInterval(function(){ announceMove(); }, 1000);
     }
 });
 
