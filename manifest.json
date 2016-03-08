@@ -4,9 +4,9 @@
   "name": "Lichess move announce",
   "description": "This extension will announce moves on lichess",
   "version": "0.1",
-
+"icons": {"48": "icon48.png" },
   "browser_action": {
-    "default_icon": "lichess.jpeg",
+    "default_icon": "icon.png",
     "default_popup": "config.html"
   },
   "content_scripts": [
