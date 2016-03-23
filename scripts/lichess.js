@@ -1,6 +1,7 @@
 var moveLetters = new Array();
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var language = null;
+var announceSpeed = 1000;
 var enabled = null;
 var announceId = null;
 var sounds = new Array();
@@ -61,6 +62,10 @@ var init = function (){
         language = items['language'];
     });
 
+    chrome.storage.sync.get('announceSpeed', function(items) {
+        announceSpeed = items['announceSpeed'];
+    });
+
     if ( language == null ) {
         language = 'en';
     }
@@ -99,7 +104,7 @@ var observer = new MutationObserver(function( mutations ) {
     }
 
     if ( moveLetters.length > 0 ) {
-        announceId = setInterval(function(){ announceMove(); }, 1000);
+        announceId = setInterval(function(){ announceMove(); }, announceSpeed);
     }
 });
 

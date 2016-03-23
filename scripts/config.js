@@ -12,6 +12,12 @@ $( '#enabled' ).change(function() {
     });
 })
 
+$( '#announceSpeed' ).change(function() {
+    chrome.storage.sync.set({'announceSpeed': $( this ).val()}, function() {
+        message('announceSpeed ' + $( this ).val() + ' set');
+    });
+})
+
 chrome.storage.sync.get('language', function(items) {
     language = items['language'];
     $( '#language' ).val(language);
@@ -25,4 +31,9 @@ chrome.storage.sync.get('enabled', function(items) {
     else {
         $( '#enabled' ).bootstrapToggle('off');
     }
+});
+
+chrome.storage.sync.get('announceSpeed', function(items) {
+    announceSpeed = items['announceSpeed'];
+    $( '#announceSpeed' ).val(announceSpeed);
 });
