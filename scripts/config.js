@@ -18,6 +18,12 @@ $( '#announceSpeed' ).change(function() {
     });
 })
 
+$( '#onlyOppMoves' ).change(function() {
+    chrome.storage.sync.set({'onlyOppMoves': $( this ).prop('checked')}, function() {
+        message('onlyOppMoves ' + $( this ).prop('checked') + ' set');
+    });
+})
+
 chrome.storage.sync.get('language', function(items) {
     language = items['language'];
     $( '#language' ).val(language);
@@ -30,6 +36,17 @@ chrome.storage.sync.get('enabled', function(items) {
     }
     else {
         $( '#enabled' ).bootstrapToggle('off');
+    }
+});
+
+
+chrome.storage.sync.get('onlyOppMoves', function(items) {
+    onlyOppMoves = items['onlyOppMoves'];
+    if (onlyOppMoves) {
+        $( '#onlyOppMoves' ).bootstrapToggle('on');
+    }
+    else {
+        $( '#onlyOppMoves' ).bootstrapToggle('off');
     }
 });
 

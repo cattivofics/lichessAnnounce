@@ -3,6 +3,7 @@ MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var language = null;
 var announceSpeed = 1000;
 var enabled = null;
+var onlyOppMoves = null;
 var announceId = null;
 var sounds = new Array();
 
@@ -16,6 +17,10 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
         if (key == 'enabled'){
             enabled = storageChange.newValue
+        }
+
+        if (key == 'onlyOppMoves'){
+            onlyOppMoves = storageChange.newValue
         }
     }
 });
@@ -55,7 +60,6 @@ var init = function (){
 
     var target = document.querySelector('.replay');
 
-    window.console.log('started');
     observer.observe(target, config);
 
     chrome.storage.sync.get('language', function(items) {
@@ -64,6 +68,10 @@ var init = function (){
 
     chrome.storage.sync.get('announceSpeed', function(items) {
         announceSpeed = items['announceSpeed'];
+    });
+
+    chrome.storage.sync.get('onlyOppMoves', function(items) {
+        onlyOppMoves = items['onlyOppMoves'];
     });
 
     if ( language == null ) {
@@ -75,7 +83,6 @@ var init = function (){
 function announceMove () {
     if( moveLetters.length > 0 ){
         file = 'sounds/' + language + '/' + sounds[moveLetters[0]]
-        console.log(file)
         var audio = new Audio(chrome.extension.getURL(file))
         audio.play()
         moveLetters.shift()
@@ -87,6 +94,8 @@ function announceMove () {
 
 var observer = new MutationObserver(function( mutations ) {
     if ( enabled == false ) { return; }
+
+    if ( onlyOppMoves && $(document).prop('title').startsWith('Waiting') ) { return; }
 
     lastMove = $(document).find('move.active');
 
