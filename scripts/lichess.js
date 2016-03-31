@@ -95,7 +95,7 @@ function announceMove () {
 var observer = new MutationObserver(function( mutations ) {
     if ( enabled == false ) { return; }
 
-    if ( onlyOppMoves && $(document).prop('title').startsWith('Waiting') ) { return; }
+    if ( onlyOppMoves && !$(document).prop('title').startsWith('Your') ) { return; }
 
     lastMove = $(document).find('move.active');
 
